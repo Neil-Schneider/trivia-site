@@ -1,6 +1,7 @@
 const questionElement = document.getElementById("question");
 const timerElement = document.getElementById("timer");
 const answerForm = document.getElementById("answer-form");
+const answerInput = document.getElementById("answer");
 
 const questions = [
   { question: "What is the capital of France?", answer: "Paris" },
@@ -35,4 +36,21 @@ function nextQuestion() {
   }
 }
 
-answerForm.addEventListener("submit", (
+answerForm.addEventListener("submit", (event) => {
+  event.preventDefault(); // Prevent page reload on form submission
+  const userAnswer = answerInput.value.trim().toLowerCase();
+
+  // Compare user answer with the correct answer
+  if (userAnswer === questions[currentQuestionIndex - 1].answer.toLowerCase()) {
+    console.log("Correct!"); // Handle correct answer (e.g., update score)
+  } else {
+    console.log("Incorrect!"); // Handle incorrect answer
+  }
+
+  // Clear the input field and move to the next question
+  answerInput.value = "";
+  nextQuestion();
+});
+
+// Start the game with the first question
+nextQuestion();
